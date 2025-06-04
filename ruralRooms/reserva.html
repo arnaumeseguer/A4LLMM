@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rural Rooms - Reserva</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+  <nav>
+    <img src="img/RRLogo.png" alt="Logo" />
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="precios.html">Precios</a></li>
+      <li><a href="reserva.html" class="actiu">Reserva</a></li>
+    </ul>
+  </nav>
+
+  <main class="wrapper">
+    <h1>Reserva</h1>
+    <form id="formulari">
+      <!-- Dades personals -->
+      <fieldset>
+        <legend>Dades personals</legend>
+        <label for="tractament">Tractament:</label>
+        <select id="tractament" name="tractament">
+          <option value="Sr">Sr</option>
+          <option value="Sra">Sra</option>
+          <option value="Srta">Srta</option>
+        </select>
+
+        <label for="nom">Nom:</label>
+        <input type="text" id="nom" name="nom" required>
+
+        <label for="cognoms">Cognoms:</label>
+        <input type="text" id="cognoms" name="cognoms" required>
+
+        <label for="telefon">Telèfon:</label>
+        <input type="tel" id="telefon" name="telefon" required>
+
+        <label for="email">Correu electrònic:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="confirmacio">Confirma el correu:</label>
+        <input type="email" id="confirmacio" name="confirmacio" required>
+
+        <label for="contrasenya">Contrasenya:</label>
+        <input type="password" id="contrasenya" name="contrasenya" required>
+      </fieldset>
+
+      <!-- Dades de la reserva -->
+      <fieldset>
+        <legend>Dades de la reserva</legend>
+        <label for="habitacio">Tipus d'habitació:</label>
+        <select id="habitacio" name="habitacio">
+          <option value="individual">Individual</option>
+          <option value="doble">Doble</option>
+          <option value="dobleSuperior">Doble superior</option>
+          <option value="triple">Triple</option>
+        </select>
+
+        <label for="persones">Número de persones:</label>
+        <input type="number" id="persones" name="persones" min="1" required>
+
+        <label for="entrada">Data d'entrada:</label>
+        <input type="date" id="entrada" name="entrada" required>
+
+        <label for="sortida">Data de sortida:</label>
+        <input type="date" id="sortida" name="sortida" required>
+
+        <label for="peticions">Peticions especials (no garantides):</label>
+        <textarea id="peticions" name="peticions" rows="4"></textarea>
+      </fieldset>
+
+      <!-- Dades addicionals -->
+      <fieldset>
+        <legend>Dades addicionals</legend>
+        <label>
+          <input type="checkbox" name="parking">
+          Vull reservar parking cobert (8€/nit). L'hotel disposa de parking exterior gratuït.
+        </label>
+
+        <label for="hora">Hora prevista d'arribada:</label>
+        <input type="time" id="hora" name="hora">
+
+        <label>
+          <input type="checkbox" name="esmorzar">
+          Afegir esmorzar per 5€/dia.
+        </label>
+      </fieldset>
+
+      <input type="submit" value="Reservar">
+    </form>
+  </main>
+
+  <footer>
+    <p>Actividad realizada por <strong>Arnau Meseguer Sancho</strong></p>
+    <p>Fotografías de la portada <a href="https://unsplash.com">Unsplash</a>
+      <img src="img/creative-commons.png" alt="CC" />
+    </p>
+  </footer>
+
+  <!-- Validació -->
+  <script>
+    const entrada = document.getElementById('entrada');
+    const sortida = document.getElementById('sortida');
+    const formulari = document.getElementById('formulari');
+    const email = document.getElementById('email');
+    const confirmacio = document.getElementById('confirmacio');
+
+    entrada.addEventListener('change', () => {
+      sortida.min = entrada.value;
+    });
+
+    formulari.addEventListener('submit', (e) => {
+      if (email.value !== confirmacio.value) {
+        e.preventDefault();
+        alert('Els correus no coincideixen.');
+        confirmacio.focus();
+      } else if (sortida.value < entrada.value) {
+        e.preventDefault();
+        alert("La data de sortida no pot ser anterior a la d'entrada.");
+        sortida.focus();
+      }
+    });
+  </script>
+</body>
+</html>
